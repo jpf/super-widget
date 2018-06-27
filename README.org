@@ -1,0 +1,13 @@
+* Okta "super-widget" demo
+** How to install:
+   1. Install [[https://jekyllrb.com/][Jekyll]]:
+      #+BEGIN_SRC sh
+      gem install bundler jekyll
+      #+END_SRC
+   2. Clone this repo
+   3. =cd= into this repo:
+      #+BEGIN_SRC sh
+      cd super-widget
+      #+END_SRC
+   4. Run =jekyll serve=
+   5. Visit [[http://localhost:4000]]
