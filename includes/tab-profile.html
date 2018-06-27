@@ -1,0 +1,33 @@
+      <div class="tab-pane show{% if include.active %} active{% endif %}" id="nav-{{ include.name }}" role="tabpanel" aria-labelledby="nav-{{ include.name }}-tab">
+        <div class="d-flex flex-row">
+          <div class="p-2">
+            Profile:
+            <br>
+            <!-- style="width: 400px; word-break: break-all;"              -->
+            <pre id="token-display"></pre>
+          </div>
+          <div class="p-2">
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">My Apps&nbsp;&nbsp;<br/>
+                      <button class="btn btn-primary btn-xs" onclick="showMyAppLinks()">Click to view</button>
+                  </div>
+                  <div class="panel-body">
+                      <div id="vueapp">
+                        <table class = "table table-striped table-hover">
+                            <tbody id="my_links" style="display:none;">
+                                <tr v-for="link in appLinks">
+                                    <td><a v-bind:href=link.linkUrl target="_blank">
+                                        <img v-bind:src=link.logoUrl class="img-rounded">
+                                        <label>[[ link.label ]]</label>
+                                    </a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+
+          </div>
+        </div>
+      </div>

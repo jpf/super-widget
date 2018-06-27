@@ -1,0 +1,25 @@
+<div class="tab-pane show{% if include.active %} active{% endif %}" id="nav-{{ include.name }}" role="tabpanel" aria-labelledby="nav-{{ include.name }}-tab">
+  <div class="d-flex flex-row" style="background-image: url({{ include.backgroundUrl }}); background-repeat: no-repeat; background-size: 100%; background-position: center center;">
+    <div class="p-2">
+      <div id="nav-{{ include.name }}-tab-widget"></div>
+    </div>
+    <div class="p-2" id="editor-{{ include.name }}">
+      <ul class="nav nav-tabs editor-nav" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="editor-{{ include.name }}-js-tab" data-toggle="tab" href="#editor-{{ include.name }}-js" role="tab" aria-controls="editor-{{ include.name }}-js" aria-selected="true">JS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="editor-{{ include.name }}-css-tab" data-toggle="tab" href="#editor-{{ include.name }}-css" role="tab" aria-controls="editor-{{ include.name }}-css" aria-selected="false">SASS</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="{{ include.name }}-tab-content">
+        <div class="tab-pane fade show active" id="editor-{{ include.name }}-js" role="tabpanel" aria-labelledby="editor-{{ include.name }}-js-tab">
+          <textarea id="editor-{{ include.name }}-js-codemirror">{% include {{ include.name }}.js include=include%}</textarea>
+        </div>
+        <div class="tab-pane fade" id="editor-{{ include.name }}-css" role="tabpanel" aria-labelledby="editor-{{ include.name }}-css-tab">
+          <textarea id="editor-{{ include.name }}-css-codemirror">{% include {{ include.name }}.scss %}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
