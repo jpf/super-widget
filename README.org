@@ -1,13 +1,31 @@
 * Okta "super-widget" demo
 ** How to install:
    1. Install [[https://jekyllrb.com/][Jekyll]]:
+
       #+BEGIN_SRC sh
       gem install bundler jekyll
       #+END_SRC
-   2. Clone this repo
+
+   2. Clone this repo:
+
+      #+BEGIN_SRC sh
+      git clone https://github.com/jpf/super-widget.git
+      #+END_SRC
+
    3. =cd= into this repo:
+
       #+BEGIN_SRC sh
       cd super-widget
       #+END_SRC
+
    4. Run =jekyll serve=
    5. Visit [[http://localhost:4000]]
+
+** How to deploy this app to your own site
+
+   1. Configure the app for your site:
+      This is done by editing the [[https://github.com/jpf/super-widget/blob/b00aea965b5c0f81e2755c329c5331fe0db9e2e3/index.html#L2-L19][configuration lines at the start of the "index.html" file]].
+   2. Run =jekyll build=
+      This compiles all of the Jekyll templates and creates static
+      files in the =_site= directory
+   3. Copy all of the files in =_site= to your static file host.
