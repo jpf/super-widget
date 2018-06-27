@@ -97,7 +97,6 @@ function hasLinterError(editor) {
 }
 
 function evalEditorContents(editor) {
-  console.log("evalEditorContents: " + editor.options.whoAmI);
   if(hasLinterError(editor)) {
     return;
   }
@@ -140,7 +139,6 @@ function evalStyle(input) {
 }
 
 function decodeTabId(target) {
-  // console.log("decodeTabId: " + target);
   var tabName = target.split("-")[1];
   var tabType = "js";
   var foundType = target.split("-")[2];
@@ -149,7 +147,6 @@ function decodeTabId(target) {
     name: tabName, // home, custom, nowidget
     type: tabType, // js, css
   };
-  // console.log(rv);
   return rv;
 }
 
@@ -255,7 +252,6 @@ function updateEditors() {
         });
       } else if (document.getElementById(objId)) {
         fetchRemoteFileForObjIdAndApplyFunction(objId, function(value) {
-          console.log("Updating form: " + objId);
           $("#" + objId).val(value);
         });
       }
@@ -281,8 +277,6 @@ function toggleProfileTab(state) {
 }
 
 function loginWith(accessToken) {
-  console.log("loginWith");
-  console.log(accessToken);
   // IMPORTANT!
   //   The code below does NOT validate the token!
   //   This is for DEMONSTRATION PURPOSES ONLY!
@@ -339,7 +333,6 @@ function logoFromDomain() {
 }
 
 function updateLogo() {
-  console.log("updateLogo()");
   var uri = logoFromDomain();
   $("#logo-preview").attr("src", uri);
   localConfig["page"]["okta"]["logo"] = uri;
@@ -349,7 +342,6 @@ function updateLogo() {
       return
     }
     vib = palette;
-    console.log("updateLogo no error");
     $("#color1").colorpicker("setValue", palette["Vibrant"].getHex());
     if(palette['LightVibrant']) {
       $("#color2").colorpicker("setValue", palette["LightVibrant"].getHex());
