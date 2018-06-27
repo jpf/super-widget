@@ -1,4 +1,6 @@
 * Okta "super-widget" demo
+  A live version of this app is avilable here: https://super-widget.j10c.com/
+
 ** How to install:
    1. Install [[https://jekyllrb.com/][Jekyll]]:
 
@@ -23,9 +25,26 @@
 
 ** How to deploy this app to your own site
 
-   1. Configure the app for your site:
-      This is done by editing the [[https://github.com/jpf/super-widget/blob/b00aea965b5c0f81e2755c329c5331fe0db9e2e3/index.html#L2-L19][configuration lines at the start of the "index.html" file]].
-   2. Run =jekyll build=
-      This compiles all of the Jekyll templates and creates static
-      files in the =_site= directory
-   3. Copy all of the files in =_site= to your static file host.
+*** Upload files to your host
+    1. Configure the app for your site:
+       This is done by editing the [[https://github.com/jpf/super-widget/blob/b00aea965b5c0f81e2755c329c5331fe0db9e2e3/index.html#L2-L19][configuration lines at the start of the "index.html" file]].
+    2. Run =jekyll build=
+       This compiles all of the Jekyll templates and creates static
+       files in the =_site= directory
+    3. Copy all of the files in =_site= to your static file host.
+*** Configure CORS in Okta
+    Admin > Security > API > Trusted Origins
+
+    Configure as follows:
+
+    - Name: https://example.com
+    - Origin URL: https://example.com
+    - [X] CORS
+    - [X] Redirect
+
+*** Configure Redirect URLs in Okta
+    Admin > Applications > [Your OIDC App] > "General" Tab > "Edit" button
+
+    Add the URL for your site as a Login redirect URI:
+
+    "https://example.com"
