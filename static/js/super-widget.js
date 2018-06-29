@@ -417,7 +417,16 @@ $( "#nav-profile-tab" ).click(function() {
 });
 
 $( "#nav-onclick-tab" ).click(function() {
-  authJsRedirect();
+  var authClient = new OktaAuth({
+    url:         signInWidgetConfig.baseUrl,
+    clientId:    signInWidgetConfig.clientId,
+    redirectUri: signInWidgetConfig.redirectUri,
+    issuer:      signInWidgetConfig.authParams.issuer,
+  });
+  authClient.token.getWithRedirect({
+    responseType: ['token', 'id_token'],
+    scopes: signInWidgetConfig.authParams.scopes
+  });
 });
 
 $("#modal-save").click(function() {
