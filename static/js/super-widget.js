@@ -432,6 +432,7 @@ $( "#nav-onclick-tab" ).click(function() {
 $("#modal-save").click(function() {
   updateLocalConfig();
   updateEditors();
+  $('#configuration-modal').modal('hide');
 });
 
 $("#modal-reset").click(function() {
