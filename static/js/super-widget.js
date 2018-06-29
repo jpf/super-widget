@@ -225,8 +225,18 @@ function setupEditor(name, type) {
   currentlyDisplayedEditorObj = editors[target];
 }
 
-// This is only for config changes!
-function updateEditors() {
+function updateModalWithLocalConfig() {
+  Object.keys(localConfig.page.okta).forEach(function (key) {
+    var objId = "#okta\\." + key;
+    console.log("objId: " + objId);
+    $( objId ).val(localConfig.page.okta[key]);
+  });
+}
+
+function updateLocalConfig() {
+  // FIXME: This is an ugly hack!
+  localConfig = {include: {name: ""}, page: {okta: {}}};
+
   // Re-read local configuration values
   $("#configuration-modal input").each(function(){
     var key = this.id.split(".")[1];
@@ -234,6 +244,17 @@ function updateEditors() {
   });
 
   localConfig["page"]["okta"]["logo"] = logoFromDomain();
+
+  // Save to localstorage
+  localStorage.setItem('localConfig', JSON.stringify(localConfig));
+  console.log("Saved to localStorage");
+}
+
+
+// This is only for config changes!
+function updateEditors() {
+  var localConfigJson = localStorage.getItem('localConfig');
+  localConfig = JSON.parse(localConfigJson);
 
   var tabsFound = [];
   $("#nav-tab a").each(function () {
@@ -346,6 +367,7 @@ function updateLogo() {
     if(palette['LightVibrant']) {
       $("#color2").colorpicker("setValue", palette["LightVibrant"].getHex());
     }
+    updateLocalConfig();
     updateEditors();
 
     // FIXME: This is an UGLY hack!
@@ -399,7 +421,13 @@ $( "#nav-onclick-tab" ).click(function() {
 });
 
 $("#modal-save").click(function() {
+  updateLocalConfig();
   updateEditors();
+});
+
+$("#modal-reset").click(function() {
+  localStorage.clear();
+  location.reload();
 });
 
 
@@ -414,7 +442,14 @@ $(function () {
   setupEditor("home", "css");
   setupEditor("home", "js");
 
-  refreshWidget("nav-home-tab");
+  if (localStorage.getItem('localConfig')) {
+    updateEditors();
+    updateModalWithLocalConfig();
+    setTimeout(function(){ refreshWidget("nav-home-tab"); }, refreshWidgetFromEditorDelay);
+  } else {
+    refreshWidget("nav-home-tab");
+  }
+
   preventOktaSignInWidgetFromStealingFocus();
 
   $("#color1").colorpicker();
