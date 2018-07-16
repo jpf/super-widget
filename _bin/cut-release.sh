@@ -5,7 +5,7 @@ BUILD_DIR="_site"
 # Directory where our archive will go
 RELEASE_DIR="_release"
 # Current Git tag
-GIT_TAG=`git tag`
+GIT_TAG=`git describe --abbrev=0 --tags`
 # Current Working Directory - name of the directory we are in
 CWD=${PWD##*/}
 # What the archive should be called
