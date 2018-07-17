@@ -1,5 +1,5 @@
 * Okta Super Widget demo app
-  A live version of this app is avilable here: https://super-widget.j10c.com/
+  A live version of this app is avilable here: https://super-widget.oktaprise.com
 
 ** Installation
 
