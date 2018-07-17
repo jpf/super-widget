@@ -1,7 +1,39 @@
-* Okta "super-widget" demo
+* Okta Super Widget demo app
   A live version of this app is avilable here: https://super-widget.j10c.com/
 
-** How to install:
+** Installation
+
+   The easiest way to install the Super Widget Demo is to download a
+   .zip file of the (HTML, CSS, JS) assets for the demo.
+
+   .zip files of each release are avaiable on the "[[https://github.com/jpf/super-widget/releases][releases]]" section of
+   the [[https://github.com/jpf/super-widget][GitHub page for the Super Widget Demo]]. Visit the releases
+   section and download the most recent .zip file.
+
+   The filename of the .zip file will look like this:
+   =super-widget-v3.14.59.zip=
+
+   Start a webserver on your local machine to serve the static files
+   from the .zip files by doing the following:
+   - Unzip this file on your local machine
+   - Open a terminal
+   - Change your working directory (=cd=) to the directory of the unzipped files
+   - Start up a webserver for the static files on =localhost:4000= as follows:
+     - If you have Python installed, you can use the webserver that is
+       built-in to Python as follows:
+       =python -m SimpleHTTPServer 4000=
+       (Python is installed by default on macOS and is installed by
+       default on most GNU/Linux distrbutions)
+     - [[https://github.com/indexzero/http-server][http-server]] is a simple command-line HTTP server written for
+       node.js that will work on GNU/Linux, macOS, and Windows
+   - Configure your Okta org to work with this demo by following the
+     instructions below.
+   - Visit [[http://localhost:4000]] to start the demo on your machine
+** Installing from source
+   If you want to make in-depth modifications to this demo on your own machine,
+   the best way to do this would be to clone this repository to your
+   local machine and set up Jekyll as follows:
+
    1. Install [[https://jekyllrb.com/][Jekyll]]:
 
       #+BEGIN_SRC sh
@@ -20,31 +52,131 @@
       cd super-widget
       #+END_SRC
 
-   4. Run =jekyll serve=
-   5. Visit [[http://localhost:4000]]
+   4. Configure your Okta org to work with this demo by following the
+      instructions below.
 
-** How to deploy this app to your own site
+   5. Modify the configuration settings in the =index.html= file as
+      approprate for your Okta org
 
-*** Upload files to your host
-    1. Configure the app for your site:
-       This is done by editing the [[https://github.com/jpf/super-widget/blob/b00aea965b5c0f81e2755c329c5331fe0db9e2e3/index.html#L2-L19][configuration lines at the start of the "index.html" file]].
-    2. Run =jekyll build=
-       This compiles all of the Jekyll templates and creates static
-       files in the =_site= directory
-    3. Copy all of the files in =_site= to your static file host.
+   6. Run =jekyll serve=
+   7. Visit [[http://localhost:4000]]
+
+** Configuring your Okta org to work with this demo
+   The Super Widget demo depends on an Okta org that is configured
+   with an OIDC app as well as an Authorization Server.
+
+   These are configured as follows:
+
+*** Start editing the =index.html= file you downloaded
+    - Use your favorite text editor to open the =index.html= you downloaded.
+    - Replace =https://live-widget.oktapreview.com= with the base URL
+      for your Okta org.
+*** Create an Authorization Server
+    In your Okta org, select the items below in this order:
+
+    Admin → Security → API → Authorization Servers
+
+    - Click the "Add Authorization Server" button
+    - Configure as follows:
+      - Name: Super Widget
+      - Audience: http://localhost:4000
+      - Description: /Leave blank/
+      - Click the "Save" button
+    - You will now see the configuration page for the "Super Widget"
+     authorization server that you just set up
+    - Click on the "Access Policies" tab
+    - Click the "Add Policy" button
+      - Name: "Accept all"
+      - Description: "Accept all clients"
+      - Assign to "All clients"
+      - Click the "Create Policy" button
+    - You will now have a new access policy
+    - Click the "Add Rule" button
+      - Name the rule "Accept all"
+      - Keep all other default settings
+    - Click the "Create Rule" button
+    - Click the "Back to Authorization Servers" link on the top left
+      of the screen
+    - Copy the "Issuer URI" from the Authorization Server you just
+      configuerd, open the =index.html= file in this project and
+      replace
+      =https://live-widget.oktapreview.com/oauth2/ausexqn31sz3HMxdf0h7=
+      with the URI for the Authorization Server you just configured.
+
+*** Set up an OIDC app for the Super Widget
+    In your Okta org, select the items below in this order:
+
+    Admin → Applications → Applications → Add Application → Create New
+    App
+
+    This will open a "Create a New Application Integration" window,
+    - Configure the new Application Integration as follows:
+      - Platform: Single Page App (SPA)
+      - Sign on method: OpenID Connect
+      - Click the "Create" button
+    - You will see a "Create OpenID Connect Integration" page,
+      configure as follows:
+      - Application Name: Super Widget
+      - Login Redirect URIs: http://localhost:4000
+      - Click the "Save" button
+    - You will see the "General" tab of the app you just created
+    - Scroll down to the bottom of the tab
+    - Copy the "Client ID" value and replace the
+      =0oaexo9c530ZUVuOj0h7= value in =index.html= with the Client ID
+      to the app you just created.
+
 *** Configure CORS in Okta
-    Admin > Security > API > Trusted Origins
+    In your Okta org, select the items below in this order:
 
-    Configure as follows:
+    Admin → Security → API → Trusted Origins
 
-    - Name: https://example.com
-    - Origin URL: https://example.com
+    Then configure the Trusted Origin as follows:
+
+    - Name: http://localhost:4000
+    - Origin URL: http://localhost:4000
     - [X] CORS
     - [X] Redirect
 
 *** Configure Redirect URLs in Okta
-    Admin > Applications > [Your OIDC App] > "General" Tab > "Edit" button
+    In your Okta org, select the items below in this order:
 
-    Add the URL for your site as a Login redirect URI:
+    Admin → Applications → [The OIDC app you created above] → "General" Tab → "Edit" button
 
-    "https://example.com"
+    Add the URL for your site as a Login redirect URI: "http://localhost:4000"
+** How to deploy this app to your own site
+*** Upload files to your host
+    1. Configure the app for your site:
+       This is done by editing the [[https://github.com/jpf/super-widget/blob/b00aea965b5c0f81e2755c329c5331fe0db9e2e3/index.html#L2-L19][configuration lines at the start of
+       the "index.html" file]] Per the instructions above.
+    2. Run =jekyll build=
+       This compiles all of the Jekyll templates and creates static
+       files in the =_site= directory
+    3. Copy all of the files in =_site= to your static file host.
+** Testing checklist
+
+   This is the suggested manual testing procedure for the Super Widget:
+
+   - [ ] Make sure the page loads
+
+   On the "Home" tab:
+   - [ ] The Okta Sign-In widget is displayed
+   - [ ] (After some delay, perhaps) "Sign In" button on Widget is
+     dark "Okta" blue (this tests that the SASS is being parsed)
+   - [ ] Changing =language= to =ja= turns Widget language to Japanese
+   - [ ] Changing =language= to =en= turns Widget language back to English
+   - [ ] Changing =i18n.en.primaryauth.submit= to =Test= changes button text
+   - [ ] Adding comma after =i18n: {= results in error and the widget
+     is /not/ reloaded   (this tests that linting is happening in the
+     CodeMirror editor)
+   - [ ] Moving cursor near bracket shows matching bracket (this tests
+     that the CodeMirror editor is configured for JavaScript and shows
+     matching brackets)
+   - [ ] Clicking on "SASS" tab changes to SASS code
+   - [ ] On the SASS tab: changing the first argument (=$fonts=) to
+     =Comic Sans MS=   changes /all/ visible fonts on the Okta Sign-In
+     Widget
+
+   Test the configuration dialog:
+
+   - [ ] Clicking on "Wrench button" opens the configuration dialog
+   - [ ] Changing "Customer Domain" to another domain (like "workday.com") updates logo, "Color #1", and "Color #2"
