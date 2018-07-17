@@ -152,6 +152,41 @@
        This compiles all of the Jekyll templates and creates static
        files in the =_site= directory
     3. Copy all of the files in =_site= to your static file host.
+** Capabilities
+   This demo app is intended to demonstrate the Okta Sign-In Widget as
+   well as the configuration and customization features that are
+   demonstrated.
+
+   The existing and planned capabilities of this demo are below:
+*** Existing Capabilities
+    - Demonstration of how to customize the Okta Sign In Widget
+      - Logo
+      - Language
+      - Title and submit button text
+    - Demonstration of Okta Sign In Widget features, including:
+      - Self-service Registration
+      - Password Reset
+      - Sign in with LinkedIn (can be configured for others as well)
+      - MFA Enrollment (depends on how the demonstration org is configured)
+      - MFA (depends on how the demonstration org is configured)
+    - Demonstration of the three major ways to secure a web app with Okta
+      1. Using the Okta Sign-In Widget
+      2. "No Widget" using the [[https://github.com/okta/okta-auth-js][Okta Auth JavaScript SDK]]
+      3. Via a redirect to an Okta org
+    - Post-Login capabilities:
+      - Decoding of the =id_token= from Okta
+      - Making a CORS request to Okta to fetch a list of assigned apps
+        (depends on how the demonstration org is configured)
+    - Logging out of an Okta session
+    - Customer org customization
+*** Planned Capabilities
+    These are planned features, please feel free to add support for
+    these features yourself. Create a Pull Request for your
+    improvements when you do!
+    - [[https://github.com/jpf/super-widget/issues/2][Detailed post-login token viewer for ID and access tokens]].
+    - [[https://github.com/jpf/super-widget/issues/5][Demonstration of logging in via a SAML IdP.]] (Inbound SAML)
+    - [[https://github.com/jpf/super-widget/issues/6][Demonstration of IdP Discovery]].
+    - [[https://github.com/jpf/super-widget/issues/7][Better error handling for errors in GET parameters]].
 ** Testing checklist
 
    This is the suggested manual testing procedure for the Super Widget:
