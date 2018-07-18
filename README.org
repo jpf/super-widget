@@ -159,6 +159,8 @@
 
    The existing and planned capabilities of this demo are below:
 *** Existing Capabilities
+    - Customization of the demo logo and colors, based on the domain
+      name of the prospect.
     - Demonstration of how to customize the Okta Sign In Widget
       - Logo
       - Language
@@ -178,7 +180,6 @@
       - Making a CORS request to Okta to fetch a list of assigned apps
         (depends on how the demonstration org is configured)
     - Logging out of an Okta session
-    - Customer org customization
 *** Planned Capabilities
     These are planned features, please feel free to add support for
     these features yourself. Create a Pull Request for your
